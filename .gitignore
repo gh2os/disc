@@ -1,0 +1,93 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+bin/
+obj/
+.venv/
+*.egg-info/
+.eggs/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+# * .venv/ [<= Ignore virtual environments created by pipenv]
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.cache/
+nosetests.xml
+coverage/
+*.cover
+.hypothesis/
+
+# Translations
+*.mo
+*.pot
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Docker
+*.dockerignore
+docker-compose*.yml
+docker-compose*.yaml
+
+# Visual Studio Code
+.vscode/
+
+# Mac OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DLL
+.sys
+
+# Linux
+*~
+
+# Environment variables
+.env
+
+# Google credentials
+credentials.json
+
+
+
+# Ignore data files
+*.json
+
+# Ignore compiled Python files
+*.pyc
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/

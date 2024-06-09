@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disc Golf Scores</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Disc Golf Scores</h1>
+
+    <h2>Current Handicaps</h2>
+    <table id="handicapsTable">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Handicap</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Raw Scores Week Over Week</h2>
+    <table id="rawScoresTable">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <!-- Date headers will be inserted here dynamically -->
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Historical Handicaps Week Over Week</h2>
+    <table id="historicalHandicapsTable">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <!-- Date headers will be inserted here dynamically -->
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Adjusted Scores Week Over Week</h2>
+    <table id="adjustedScoresTable">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <!-- Date headers will be inserted here dynamically -->
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function fetchScores() {
+            try {
+                const response = await fetch('https://yourusername.github.io/disc-golf-scores/disc_golf_scores.json');
+                const data = await response.json();
+    
+                const handicapsResponse = await fetch('https://yourusername.github.io/disc-golf-scores/historical_data.json');
+                const historicalData = await handicapsResponse.json();
+    
+                // Populate adjusted scores table
+                const adjustedScoresTableHead = document.querySelector('#adjustedScoresTable thead tr');
+                const adjustedScoresTableBody = document.querySelector('#adjustedScoresTable tbody');
+                const dates = Object.keys(historicalData.raw_scores).map(key => key.split('_')[1]);
+                dates.forEach(date => {
+                    const th = document.createElement('th');
+                    th.textContent = date;
+                    adjustedScoresTableHead.appendChild(th);
+                });
+                historicalData.players.forEach(player => {
+                    const tr = document.createElement('tr');
+                    const adjustedScores = historicalData.adjusted_scores[player];
+                    tr.innerHTML = `<td>${player}</td>` + adjustedScores.map(score => `<td>${score}</td>`).join('');
+                    adjustedScoresTableBody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error('Error fetching scores:', error);
+            }
+        }
+    
+        fetchScores();
+    </script>
