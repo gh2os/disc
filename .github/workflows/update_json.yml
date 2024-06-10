@@ -1,11 +1,6 @@
 name: Update JSON
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight
-  push:
-    branches:
-      - main
   repository_dispatch:
     types: [google_sheets_update]
 
@@ -33,7 +28,7 @@ jobs:
 
       - name: Run Python script
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
         run: |
           python process_scores.py
 
