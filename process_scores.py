@@ -6,36 +6,39 @@ import numpy as np
 import json
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load environment variables from .env file if needed
 load_dotenv()
 
 def fetch_and_process_data():
     # Google Sheets setup
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+    creds_path = 'credentials.json'  # Ensure this path matches the workflow
     creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
     client = gspread.authorize(creds)
 
     # Open the Google Sheets
-    form_responses_sheet = client.open('Your Google Sheet Name').worksheet('Form Responses 1')
+    form_responses_sheet = client.open('Your Google Sheet Name').worksheet('Form Responses')
     overrides_sheet = client.open('Your Google Sheet Name').worksheet('Overrides')
     processed_sheet = client.open('Your Google Sheet Name').worksheet('Processed Scores')
 
     # Fetch data from sheets
     form_responses = form_responses_sheet.get_all_records()
     overrides = overrides_sheet.get_all_records()
+    processed = processed_sheet.get_all_records()
 
     # Convert to DataFrames
     form_df = pd.DataFrame(form_responses)
     overrides_df = pd.DataFrame(overrides)
+    processed_df = pd.DataFrame(processed)
 
     # Set Player as index
     form_df.set_index('Player Name', inplace=True)
     overrides_df.set_index('Player Name', inplace=True)
+    processed_df.set_index('Player Name', inplace=True)
 
     # Process Overrides and Apply Adjustments
     for index, row in overrides_df.iterrows():
-        if row['Adjustment'].lower() == 'yes':
+        if row['Adjustment'] == 'Yes':
             # Apply adjustments
             form_df.loc[index] = row
 
