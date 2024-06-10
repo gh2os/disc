@@ -15,24 +15,31 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      
+
+      - name: Set up GOOGLE_APPLICATION_CREDENTIALS
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 --decode > credentials.json
+
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > credentials.json
           python process_scores.py
-      
+
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
