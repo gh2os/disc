@@ -123,7 +123,7 @@ def fetch_and_process_data():
     processed_data = combined_df.reset_index()[['Player name', 'Timestamp', 'Score', 'Handicap'] + [f'Adjusted {date}' for date in dates]]
 
     # Clear the data below headers in the Processed Scores sheet
-    processed_sheet.clear(start='A2')
+    processed_sheet.batch_clear(['A2:Z'])  # Adjust the range according to your needs
     processed_sheet.append_rows(processed_data.values.tolist())
 
     # Load existing data if available
