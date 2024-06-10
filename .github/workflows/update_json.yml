@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Python script
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: |
           python process_scores.py
 
