@@ -17,7 +17,7 @@ def fetch_and_process_data():
     client = gspread.authorize(creds)
 
     # Open the Google Sheets (use the exact name of your Google Sheet)
-    sheet_name = 'Form Responses'  # Replace with the name of your Google Sheet
+    sheet_name = 'Your Google Sheet Name'  # Replace with the name of your Google Sheet
     try:
         spreadsheet = client.open(sheet_name)
         print(f"Successfully opened spreadsheet: {spreadsheet.title}")
@@ -37,10 +37,19 @@ def fetch_and_process_data():
     # Fetch data from sheets
     form_responses = form_responses_sheet.get_all_records()
     overrides = overrides_sheet.get_all_records()
-    
-    # Explicitly define expected headers for processed scores to avoid errors
+
+    # Define expected headers
     expected_headers = ['Player Name', 'Date', 'Score', 'Handicap', 'Adjusted Score']
-    processed = processed_sheet.get_all_records(expected_headers=expected_headers)
+    
+    # Check if the Processed Scores sheet has headers
+    processed_headers = processed_sheet.row_values(1)
+    if processed_headers != expected_headers:
+        print("Updating headers in Processed Scores sheet")
+        processed_sheet.clear()
+        processed_sheet.append_row(expected_headers)
+
+    # Fetch existing data from Processed Scores sheet
+    processed = processed_sheet.get_all_records()
 
     # Convert to DataFrames
     form_df = pd.DataFrame(form_responses)
@@ -88,6 +97,14 @@ def fetch_and_process_data():
     # Calculate adjusted scores for each date
     for date in dates:
         combined_df[f'Adjusted {date}'] = combined_df.apply(lambda row: calculate_adjusted_score(row[date], row['Handicap']), axis=1)
+
+    # Prepare data for Processed Scores sheet
+    processed_data = combined_df.reset_index()[['Player Name', 'Date', 'Score', 'Handicap'] + [f'Adjusted {date}' for date in dates]]
+
+    # Update the Processed Scores sheet
+    processed_sheet.clear()
+    processed_sheet.append_row(expected_headers)
+    processed_sheet.append_rows(processed_data.values.tolist())
 
     # Load existing data if available
     try:
