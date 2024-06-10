@@ -38,9 +38,15 @@ def fetch_and_process_data():
     form_responses = form_responses_sheet.get_all_records()
     overrides = overrides_sheet.get_all_records()
 
+    # Print headers and first few rows for debugging
+    print("Form Responses headers and first few rows:")
+    print(pd.DataFrame(form_responses).head())
+    print("Overrides headers and first few rows:")
+    print(pd.DataFrame(overrides).head())
+
     # Define expected headers
-    expected_headers = ['Player Name', 'Date', 'Score', 'Handicap', 'Adjusted Score']
-    
+    expected_headers = ['Player name', 'Timestamp', 'Score', 'Handicap', 'Adjusted Score']
+
     # Check if the Processed Scores sheet has headers
     processed_headers = processed_sheet.row_values(1)
     if processed_headers != expected_headers:
@@ -56,10 +62,18 @@ def fetch_and_process_data():
     overrides_df = pd.DataFrame(overrides)
     processed_df = pd.DataFrame(processed)
 
-    # Set Player as index
-    form_df.set_index('Player Name', inplace=True)
-    overrides_df.set_index('Player Name', inplace=True)
-    processed_df.set_index('Player Name', inplace=True)
+    # Print DataFrames for debugging
+    print("Form DataFrame:")
+    print(form_df.head())
+    print("Overrides DataFrame:")
+    print(overrides_df.head())
+    print("Processed DataFrame:")
+    print(processed_df.head())
+
+    # Set Player name as index
+    form_df.set_index('Player name', inplace=True)
+    overrides_df.set_index('Player name', inplace=True)
+    processed_df.set_index('Player name', inplace=True)
 
     # Process Overrides and Apply Adjustments
     for index, row in overrides_df.iterrows():
@@ -68,10 +82,10 @@ def fetch_and_process_data():
             form_df.loc[index] = row
 
     # Combine form responses and overrides
-    combined_df = pd.concat([form_df, overrides_df]).drop_duplicates(subset=['Player Name', 'Date'], keep='last')
+    combined_df = pd.concat([form_df, overrides_df]).drop_duplicates(subset=['Player name', 'Timestamp'], keep='last')
 
     # Calculate handicaps and adjusted scores
-    dates = combined_df.columns[2:]  # Assuming first two columns are Player Name and Date
+    dates = combined_df.columns[2:]  # Assuming first two columns are Player name and Timestamp
 
     def calculate_handicap(row):
         scores = row.dropna().tolist()
@@ -92,18 +106,17 @@ def fetch_and_process_data():
         return raw_score - handicap
 
     # Calculate handicap for each player
-    combined_df['Handicap'] = combined_df.groupby('Player Name')['Score'].transform(lambda x: calculate_handicap(x))
+    combined_df['Handicap'] = combined_df.groupby('Player name')['Score'].transform(lambda x: calculate_handicap(x))
 
     # Calculate adjusted scores for each date
     for date in dates:
         combined_df[f'Adjusted {date}'] = combined_df.apply(lambda row: calculate_adjusted_score(row[date], row['Handicap']), axis=1)
 
     # Prepare data for Processed Scores sheet
-    processed_data = combined_df.reset_index()[['Player Name', 'Date', 'Score', 'Handicap'] + [f'Adjusted {date}' for date in dates]]
+    processed_data = combined_df.reset_index()[['Player name', 'Timestamp', 'Score', 'Handicap'] + [f'Adjusted {date}' for date in dates]]
 
-    # Update the Processed Scores sheet
-    processed_sheet.clear()
-    processed_sheet.append_row(expected_headers)
+    # Clear the data below headers in the Processed Scores sheet
+    processed_sheet.clear(start='A2')
     processed_sheet.append_rows(processed_data.values.tolist())
 
     # Load existing data if available
