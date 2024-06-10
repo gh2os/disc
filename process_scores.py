@@ -18,14 +18,29 @@ def fetch_and_process_data():
 
     # Open the Google Sheets (use the exact name of your Google Sheet)
     sheet_name = 'Form Responses'  # Replace with the name of your Google Sheet
-    form_responses_sheet = client.open(sheet_name).worksheet('Form Responses')
-    overrides_sheet = client.open(sheet_name).worksheet('Overrides')
-    processed_sheet = client.open(sheet_name).worksheet('Processed Scores')
+    try:
+        spreadsheet = client.open(sheet_name)
+        print(f"Successfully opened spreadsheet: {spreadsheet.title}")
+    except Exception as e:
+        print(f"Error opening spreadsheet: {e}")
+        return
+
+    try:
+        form_responses_sheet = spreadsheet.worksheet('Form Responses')
+        overrides_sheet = spreadsheet.worksheet('Overrides')
+        processed_sheet = spreadsheet.worksheet('Processed Scores')
+        print("Successfully opened all worksheets")
+    except Exception as e:
+        print(f"Error opening worksheets: {e}")
+        return
 
     # Fetch data from sheets
     form_responses = form_responses_sheet.get_all_records()
     overrides = overrides_sheet.get_all_records()
-    processed = processed_sheet.get_all_records()
+    
+    # Explicitly define expected headers for processed scores to avoid errors
+    expected_headers = ['Player Name', 'Date', 'Score', 'Handicap', 'Adjusted Score']
+    processed = processed_sheet.get_all_records(expected_headers=expected_headers)
 
     # Convert to DataFrames
     form_df = pd.DataFrame(form_responses)
