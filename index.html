@@ -14,7 +14,7 @@
 <body>
     <h1>Disc Golf Scores</h1>
 
-    <h2>Current Handicaps</h2>
+    <!-- <h2>Current Handicaps</h2>
     <table id="handicapsTable">
         <thead>
             <tr>
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody></tbody>
-    </table>
+    </table> -->
 
     <h2>Raw Scores Week Over Week</h2>
     <table id="rawScoresTable">
@@ -36,7 +36,7 @@
         <tbody></tbody>
     </table>
 
-    <h2>Historical Handicaps Week Over Week</h2>
+    <!-- <h2>Historical Handicaps Week Over Week</h2>
     <table id="historicalHandicapsTable">
         <thead>
             <tr>
@@ -56,7 +56,7 @@
             </tr>
         </thead>
         <tbody></tbody>
-    </table>
+    </table> -->
 
     <script>
         async function fetchScores() {
@@ -67,20 +67,20 @@
                 const handicapsResponse = await fetch('https://gh2os.github.io/disc/historical_data.json');
                 const historicalData = await handicapsResponse.json();
     
-                // Populate adjusted scores table
-                const adjustedScoresTableHead = document.querySelector('#adjustedScoresTable thead tr');
-                const adjustedScoresTableBody = document.querySelector('#adjustedScoresTable tbody');
-                const dates = Object.keys(historicalData.raw_scores).map(key => key.split('_')[1]);
+                // Populate raw scores table
+                const rawScoresTableHead = document.querySelector('#rawScoresTable thead tr');
+                const rawScoresTableBody = document.querySelector('#rawScoresTable tbody');
+                const dates = Object.keys(historicalData.raw_scores["Greg Waters"]);
                 dates.forEach(date => {
                     const th = document.createElement('th');
                     th.textContent = date;
-                    adjustedScoresTableHead.appendChild(th);
+                    rawScoresTableHead.appendChild(th);
                 });
                 historicalData.players.forEach(player => {
                     const tr = document.createElement('tr');
-                    const adjustedScores = historicalData.adjusted_scores[player];
-                    tr.innerHTML = `<td>${player}</td>` + adjustedScores.map(score => `<td>${score}</td>`).join('');
-                    adjustedScoresTableBody.appendChild(tr);
+                    const rawScores = historicalData.raw_scores[player];
+                    tr.innerHTML = `<td>${player}</td>` + rawScores.map(score => `<td>${score}</td>`).join('');
+                    rawScoresTableBody.appendChild(tr);
                 });
             } catch (error) {
                 console.error('Error fetching scores:', error);
@@ -89,3 +89,5 @@
     
         fetchScores();
     </script>
+</body>
+</html>
