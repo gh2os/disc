@@ -26,9 +26,18 @@ jobs:
         run: |
           echo "$GOOGLE_APPLICATION_CREDENTIALS" > credentials.json
 
+      - name: Check and create JSON files if they don't exist
+        run: |
+          if [ ! -f disc_golf_scores.json ]; then
+            echo "[]" > disc_golf_scores.json
+          fi
+          if [ ! -f historical_data.json ]; then
+            echo '{"players": [], "current_handicaps": [], "raw_scores": {}, "handicaps": {}, "adjusted_scores": {}}' > historical_data.json
+          fi
+
       - name: Run Python script
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
         run: |
           python process_scores.py
 
