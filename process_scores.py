@@ -17,7 +17,7 @@ def fetch_and_process_data():
     client = gspread.authorize(creds)
 
     # Open the Google Sheets (use the exact name of your Google Sheet)
-    sheet_name = 'Your Google Sheet Name'  # Replace with the name of your Google Sheet
+    sheet_name = 'Form Responses'  # Replace with the name of your Google Sheet
     try:
         spreadsheet = client.open(sheet_name)
         print(f"Successfully opened spreadsheet: {spreadsheet.title}")
