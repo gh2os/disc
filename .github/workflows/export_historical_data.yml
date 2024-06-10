@@ -1,29 +1,43 @@
-name: Export Historical Data
+name: Update JSON
 
 on:
   schedule:
     - cron: '0 0 * * *' # Runs daily at midnight
-  workflow_dispatch: # Allows manual triggering
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types: [google_sheets_update]
 
 jobs:
-  export:
+  update-json:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      
-      - name: Run export script
+
+      - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         run: |
           echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > credentials.json
-          python export_historical_data.py
+          python process_scores.py
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add disc_golf_scores.json historical_data.json
+          git commit -m 'Update JSON data'
+          git push
