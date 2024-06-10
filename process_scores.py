@@ -17,9 +17,9 @@ def fetch_and_process_data():
     client = gspread.authorize(creds)
 
     # Open the Google Sheets
-    form_responses_sheet = client.open('Your Google Sheet Name').worksheet('Form Responses')
-    overrides_sheet = client.open('Your Google Sheet Name').worksheet('Overrides')
-    processed_sheet = client.open('Your Google Sheet Name').worksheet('Processed Scores')
+    form_responses_sheet = client.open('Form Responses').worksheet('Form Responses')
+    overrides_sheet = client.open('Form Responses').worksheet('Overrides')
+    processed_sheet = client.open('Form Responses').worksheet('Processed Scores')
 
     # Fetch data from sheets
     form_responses = form_responses_sheet.get_all_records()

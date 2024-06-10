@@ -24,3 +24,8 @@ Detailed Steps
 Summary
 
 By following these steps, you can set up a robust system for collecting, processing, and displaying disc golf scores. Players can submit their scores via a form, the data will be processed automatically with Python, and the results will be displayed on a web page hosted on GitHub Pages. Automation through GitHub Actions ensures that the data is always up-to-date without manual intervention.
+
+
+- fixes / questions
+
+"form respones (1)" etc
