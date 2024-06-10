@@ -83,9 +83,6 @@ credentials.json
 
 
 
-# Ignore data files
-*.json
-
 # Ignore compiled Python files
 *.pyc
 
