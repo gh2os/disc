@@ -44,8 +44,8 @@ def fetch_and_process_data():
     print("Overrides headers and first few rows:")
     print(pd.DataFrame(overrides).head())
 
-    # Define expected headers
-    expected_headers = ['Player name', 'Date', 'Score', 'Adjustment']
+    # Define expected headers for Processed Scores
+    expected_headers = ['Player name', 'Timestamp', 'Score', 'Handicap', 'Adjusted Score']
 
     # Check if the Processed Scores sheet has headers
     processed_headers = processed_sheet.row_values(1)
@@ -70,11 +70,12 @@ def fetch_and_process_data():
     print("Processed DataFrame:")
     print(processed_df.head())
 
-    # Set Player name as index, handle empty DataFrames
-    form_df.set_index('Player name', inplace=True)
-    if not overrides_df.empty:
+    # Ensure necessary columns are present and handle empty DataFrames
+    if not form_df.empty and 'Player name' in form_df.columns:
+        form_df.set_index('Player name', inplace=True)
+    if not overrides_df.empty and 'Player name' in overrides_df.columns:
         overrides_df.set_index('Player name', inplace=True)
-    if not processed_df.empty:
+    if not processed_df.empty and 'Player name' in processed_df.columns:
         processed_df.set_index('Player name', inplace=True)
 
     # Process Overrides and Apply Adjustments
@@ -84,11 +85,14 @@ def fetch_and_process_data():
                 # Apply adjustments
                 form_df.loc[index] = row
 
-    # Combine form responses and overrides
-    combined_df = pd.concat([form_df, overrides_df]).drop_duplicates(subset=['Player name', 'Date'], keep='last')
+    # Combine form responses and overrides, ensuring necessary columns are present
+    if not overrides_df.empty and not form_df.empty:
+        combined_df = pd.concat([form_df, overrides_df], ignore_index=False).drop_duplicates(subset=['Player name', 'Timestamp'], keep='last')
+    else:
+        combined_df = form_df.copy()
 
     # Calculate handicaps and adjusted scores
-    dates = combined_df.columns[2:]  # Assuming first two columns are Player name and Date
+    dates = combined_df.columns[2:]  # Assuming first two columns are Player name and Timestamp
 
     def calculate_handicap(row):
         scores = row.dropna().tolist()
@@ -116,7 +120,7 @@ def fetch_and_process_data():
         combined_df[f'Adjusted {date}'] = combined_df.apply(lambda row: calculate_adjusted_score(row[date], row['Handicap']), axis=1)
 
     # Prepare data for Processed Scores sheet
-    processed_data = combined_df.reset_index()[['Player name', 'Date', 'Score', 'Handicap'] + [f'Adjusted {date}' for date in dates]]
+    processed_data = combined_df.reset_index()[['Player name', 'Timestamp', 'Score', 'Handicap'] + [f'Adjusted {date}' for date in dates]]
 
     # Clear the data below headers in the Processed Scores sheet
     processed_sheet.clear(start='A2')
