@@ -1,67 +1,67 @@
 [
     {
         "Player": "Devon Lach",
-        "Handicap": 9.666666666666666,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": "Not enough scores for handicap, need 1 more",
+        "Last Recorded Score Date": "6/5/2024"
     },
     {
         "Player": "Dion Eden",
-        "Handicap": 6.4,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 7.25,
+        "Last Recorded Score Date": "6/12/2024"
     },
     {
         "Player": "Brian Vanderlinde",
-        "Handicap": 5.4,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 6.0,
+        "Last Recorded Score Date": "6/12/2024"
     },
     {
         "Player": "Laura Meshen",
-        "Handicap": 21.25,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 27.333333333333332,
+        "Last Recorded Score Date": "6/5/2024"
     },
     {
         "Player": "Michael Perrault ",
-        "Handicap": 1.0,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 0.0,
+        "Last Recorded Score Date": "6/12/2024"
     },
     {
         "Player": "Brad Williams",
-        "Handicap": 2.0,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 1.2,
+        "Last Recorded Score Date": "6/12/2024"
     },
     {
         "Player": "D'arcy Bridgeman",
-        "Handicap": 1.5,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 1.0,
+        "Last Recorded Score Date": "6/5/2024"
     },
     {
         "Player": "Murray Fontaine",
-        "Handicap": 6.25,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 7.333333333333333,
+        "Last Recorded Score Date": "6/12/2024"
     },
     {
         "Player": "Michael Cyr",
-        "Handicap": 3.75,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 4.0,
+        "Last Recorded Score Date": "6/5/2024"
     },
     {
         "Player": "laurie Smith",
-        "Handicap": "Not enough scores for handicap, need 1 more",
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": "Not enough scores for handicap, need 2 more",
+        "Last Recorded Score Date": "5/15/2024"
     },
     {
         "Player": "Kevin Letts",
-        "Handicap": "Not enough scores for handicap, need 1 more",
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": "Not enough scores for handicap, need 2 more",
+        "Last Recorded Score Date": "5/15/2024"
     },
     {
         "Player": "Greg Waters",
-        "Handicap": 2.25,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 1.6666666666666667,
+        "Last Recorded Score Date": "6/12/2024"
     },
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-17T23:55:34.068153+00:00"
+        "Last Recorded Score Date": "2024-06-17T23:57:01.504019+00:00"
     }
 ]
