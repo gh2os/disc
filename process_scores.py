@@ -2,6 +2,7 @@ import pandas as pd
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 import json
+from datetime import datetime, timezone
 
 # Define the scope
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
@@ -79,7 +80,12 @@ def process_scores():
         player_scores = df[df['Player'] == player].dropna(subset=['Score'])
         scores = player_scores['Score'].tolist()
         handicap = calculate_handicap(scores)
-        last_recorded_score_date = player_scores['Date'].max()
+        
+        # Ensure to get the most recent non-null score date
+        if not player_scores.empty:
+            last_recorded_score_date = player_scores.loc[player_scores['Score'].last_valid_index(), 'Date']
+        else:
+            last_recorded_score_date = None
 
         if handicap is None:
             needed_scores = 3 - len(scores)
@@ -102,7 +108,7 @@ def process_scores():
     result_data.append({
         'Player': 'last_updated',
         'Handicap': '',
-        'Last Recorded Score Date': datetime.utcnow().isoformat() + 'Z'
+        'Last Recorded Score Date': datetime.now(timezone.utc).isoformat()
     })
 
     with open('disc_golf_scores.json', 'w') as f:
