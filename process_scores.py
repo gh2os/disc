@@ -1,162 +1,76 @@
-import os
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
-import numpy as np
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+import os
 import json
-from dotenv import load_dotenv
 
-# Load environment variables from .env file if needed
-load_dotenv()
+# Define the scope
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
-def fetch_and_process_data():
-    # Google Sheets setup
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds_path = 'credentials.json'  # Ensure this path matches the workflow
-    creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
-    client = gspread.authorize(creds)
+# Define the spreadsheet ID and range
+SPREADSHEET_ID = '1pIPq4gkc8y08Px6bwh5bPEOv6HngLxw4zOZX355NW3c'  # Replace with your Google Sheets ID
+RANGE_NAME = 'Scores!A:Z'  # Adjust the range as needed
 
-    # Open the Google Sheets (use the exact name of your Google Sheet)
-    sheet_name = 'Form Responses'  # Replace with the name of your Google Sheet
-    try:
-        spreadsheet = client.open(sheet_name)
-        print(f"Successfully opened spreadsheet: {spreadsheet.title}")
-    except Exception as e:
-        print(f"Error opening spreadsheet: {e}")
-        return
+def fetch_data_from_sheets():
+    creds = Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
+    service = build('sheets', 'v4', credentials=creds)
+    sheet = service.spreadsheets()
 
-    try:
-        form_responses_sheet = spreadsheet.worksheet('Form Responses')
-        overrides_sheet = spreadsheet.worksheet('Overrides')
-        processed_sheet = spreadsheet.worksheet('Processed Scores')
-        print("Successfully opened all worksheets")
-    except Exception as e:
-        print(f"Error opening worksheets: {e}")
-        return
+    result = sheet.values().get(spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME).execute()
+    values = result.get('values', [])
 
-    # Fetch data from sheets
-    form_responses = form_responses_sheet.get_all_records()
-    overrides = overrides_sheet.get_all_records()
-
-    # Print headers and first few rows for debugging
-    print("Form Responses headers and first few rows:")
-    print(pd.DataFrame(form_responses).head())
-    print("Overrides headers and first few rows:")
-    print(pd.DataFrame(overrides).head())
-
-    # Define expected headers for Processed Scores
-    expected_headers = ['Player name', 'Timestamp', 'Score', 'Handicap', 'Adjusted Score']
-
-    # Check if the Processed Scores sheet has headers
-    processed_headers = processed_sheet.row_values(1)
-    if processed_headers != expected_headers:
-        print("Updating headers in Processed Scores sheet")
-        processed_sheet.clear()
-        processed_sheet.append_row(expected_headers)
-
-    # Fetch existing data from Processed Scores sheet
-    processed = processed_sheet.get_all_records()
-
-    # Convert to DataFrames
-    form_df = pd.DataFrame(form_responses)
-    overrides_df = pd.DataFrame(overrides)
-    processed_df = pd.DataFrame(processed)
-
-    # Print DataFrames for debugging
-    print("Form DataFrame:")
-    print(form_df.head())
-    print("Overrides DataFrame:")
-    print(overrides_df.head())
-    print("Processed DataFrame:")
-    print(processed_df.head())
-
-    # Ensure necessary columns are present and handle empty DataFrames
-    if not form_df.empty and 'Player name' in form_df.columns:
-        form_df.set_index('Player name', inplace=True)
-    if not overrides_df.empty and 'Player name' in overrides_df.columns:
-        overrides_df.set_index('Player name', inplace=True)
-    if not processed_df.empty and 'Player name' in processed_df.columns:
-        processed_df.set_index('Player name', inplace=True)
-
-    # Process Overrides and Apply Adjustments
-    if not overrides_df.empty:
-        for index, row in overrides_df.iterrows():
-            if row['Adjustment'] == 'Yes':
-                # Apply adjustments
-                form_df.loc[index] = row
-
-    # Combine form responses and overrides, ensuring necessary columns are present
-    if not overrides_df.empty and not form_df.empty:
-        combined_df = pd.concat([form_df, overrides_df], ignore_index=False).drop_duplicates(subset=['Player name', 'Timestamp'], keep='last')
+    if not values:
+        print('No data found.')
+        return pd.DataFrame()
     else:
-        combined_df = form_df.copy()
+        # Transpose the data to get it into the right format
+        df = pd.DataFrame(values[1:], columns=values[0])
+        df = df.melt(id_vars=["Player"], var_name="Date", value_name="Score")
+        df["Score"] = pd.to_numeric(df["Score"], errors="coerce")
+        return df
 
-    # Calculate handicaps and adjusted scores
-    dates = combined_df.columns[2:]  # Assuming first two columns are Player name and Timestamp
+def calculate_handicap(scores):
+    if len(scores) >= 5:
+        return sum(scores[-5:]) / 5
+    elif len(scores) == 4:
+        return sum(scores) / 4
+    elif len(scores) == 3:
+        return sum(scores) / 3
+    else:
+        return None
 
-    def calculate_handicap(row):
-        scores = row.dropna().tolist()
-        num_scores = len(scores)
-        
-        if num_scores >= 5:
-            return np.mean(sorted(scores)[-5:])
-        elif num_scores == 4:
-            return np.mean(scores)
-        elif num_scores == 3:
-            return np.mean(scores)
+def process_scores():
+    df = fetch_data_from_sheets()
+    if df.empty:
+        print("No data to process.")
+        return
+
+    players = df['Player'].unique()
+
+    result = []
+
+    for player in players:
+        player_scores = df[df['Player'] == player].dropna(subset=['Score'])
+        scores = player_scores['Score'].tolist()
+        handicap = calculate_handicap(scores)
+        last_recorded_score_date = player_scores['Date'].max()
+
+        if handicap is None:
+            needed_scores = 3 - len(scores)
+            result.append({
+                'Player': player,
+                'Handicap': f'Not enough scores for handicap, need {needed_scores} more',
+                'Last Recorded Score Date': last_recorded_score_date
+            })
         else:
-            return "Not enough scores"
+            result.append({
+                'Player': player,
+                'Handicap': handicap,
+                'Last Recorded Score Date': last_recorded_score_date
+            })
 
-    def calculate_adjusted_score(raw_score, handicap):
-        if pd.isna(raw_score):
-            return ""
-        return raw_score - handicap
+    result_df = pd.DataFrame(result)
+    result_df.to_json('disc_golf_scores.json', orient='records')
 
-    # Calculate handicap for each player
-    combined_df['Handicap'] = combined_df.groupby('Player name')['Score'].transform(lambda x: calculate_handicap(x))
-
-    # Calculate adjusted scores for each date
-    for date in dates:
-        combined_df[f'Adjusted {date}'] = combined_df.apply(lambda row: calculate_adjusted_score(row[date], row['Handicap']), axis=1)
-
-    # Prepare data for Processed Scores sheet
-    processed_data = combined_df.reset_index()[['Player name', 'Timestamp', 'Score', 'Handicap'] + [f'Adjusted {date}' for date in dates]]
-
-    # Clear the data below headers in the Processed Scores sheet
-    processed_sheet.batch_clear(['A2:Z'])  # Adjust the range according to your needs
-    processed_sheet.append_rows(processed_data.values.tolist())
-
-    # Load existing data if available
-    try:
-        with open('disc_golf_scores.json', 'r') as f:
-            existing_data = json.load(f)
-    except FileNotFoundError:
-        existing_data = []
-
-    try:
-        with open('historical_data.json', 'r') as f:
-            existing_historical_data = json.load(f)
-    except FileNotFoundError:
-        existing_historical_data = {'players': [], 'current_handicaps': [], 'raw_scores': {}, 'handicaps': {}, 'adjusted_scores': {}}
-
-    # Update the processed data JSON
-    output_data = combined_df.reset_index().to_dict(orient='records')
-    existing_data.extend(output_data)
-    with open('disc_golf_scores.json', 'w') as f:
-        json.dump(existing_data, f)
-
-    # Additional data for historical tracking
-    for player in combined_df.index:
-        if player not in existing_historical_data['players']:
-            existing_historical_data['players'].append(player)
-            existing_historical_data['handicaps'][player] = []
-            existing_historical_data['adjusted_scores'][player] = []
-
-        existing_historical_data['handicaps'][player].extend(combined_df.loc[player, 'Handicap'])
-        existing_historical_data['adjusted_scores'][player].extend(combined_df.loc[player, [f'Adjusted {date}' for date in dates]])
-
-    with open('historical_data.json', 'w') as f:
-        json.dump(existing_historical_data, f)
-
-# Run the function
-fetch_and_process_data()
+if __name__ == '__main__':
+    process_scores()
