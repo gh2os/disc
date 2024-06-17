@@ -96,7 +96,17 @@ def process_scores():
             })
 
     result_df = pd.DataFrame(result)
-    result_df.to_json('disc_golf_scores.json', orient='records')
+    result_data = result_df.to_dict(orient='records')
+
+    # Add last updated timestamp
+    result_data.append({
+        'Player': 'last_updated',
+        'Handicap': '',
+        'Last Recorded Score Date': datetime.utcnow().isoformat() + 'Z'
+    })
+
+    with open('disc_golf_scores.json', 'w') as f:
+        json.dump(result_data, f, indent=4)
 
 if __name__ == '__main__':
     process_scores()

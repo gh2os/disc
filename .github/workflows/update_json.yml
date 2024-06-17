@@ -19,7 +19,6 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib pandas
 
       - name: Set up GOOGLE_APPLICATION_CREDENTIALS
         env:
