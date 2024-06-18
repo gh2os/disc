@@ -54,6 +54,12 @@ def fetch_data_from_sheets():
         df["Score"] = pd.to_numeric(df["Score"], errors="coerce")
         return df
 
+def format_name(name):
+    parts = name.split()
+    if len(parts) > 1:
+        return f"{parts[0]} {parts[1][0]}."
+    return name
+
 def calculate_handicap(scores):
     if len(scores) >= 5:
         return round(sum(scores[-5:]) / 5, 2)
@@ -87,16 +93,18 @@ def process_scores():
         else:
             last_recorded_score_date = None
 
+        formatted_name = format_name(player)
+
         if handicap is None:
             needed_scores = 3 - len(scores)
             result.append({
-                'Player': player,
+                'Player': formatted_name,
                 'Handicap': f'Need {needed_scores} score(s)',
                 'Last Recorded Score Date': last_recorded_score_date
             })
         else:
             result.append({
-                'Player': player,
+                'Player': formatted_name,
                 'Handicap': handicap,
                 'Last Recorded Score Date': last_recorded_score_date
             })
