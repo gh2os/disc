@@ -56,11 +56,11 @@ def fetch_data_from_sheets():
 
 def calculate_handicap(scores):
     if len(scores) >= 5:
-        return sum(scores[-5:]) / 5
+        return round(sum(scores[-5:]) / 5, 2)
     elif len(scores) == 4:
-        return sum(scores) / 4
+        return round(sum(scores) / 4, 2)
     elif len(scores) == 3:
-        return sum(scores) / 3
+        return round(sum(scores) / 3, 2)
     else:
         return None
 
@@ -91,7 +91,7 @@ def process_scores():
             needed_scores = 3 - len(scores)
             result.append({
                 'Player': player,
-                'Handicap': f'Need {needed_scores} more recorded scores',
+                'Handicap': f'Need {needed_scores} score(s)',
                 'Last Recorded Score Date': last_recorded_score_date
             })
         else:
