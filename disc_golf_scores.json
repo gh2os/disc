@@ -1,7 +1,7 @@
 [
     {
         "Player": "Devon Lach",
-        "Handicap": "Not enough scores for handicap, need 1 more",
+        "Handicap": "Need 1 more recorded scores",
         "Last Recorded Score Date": "6/5/2024"
     },
     {
@@ -46,12 +46,12 @@
     },
     {
         "Player": "laurie Smith",
-        "Handicap": "Not enough scores for handicap, need 2 more",
+        "Handicap": "Need 2 more recorded scores",
         "Last Recorded Score Date": "5/15/2024"
     },
     {
         "Player": "Kevin Letts",
-        "Handicap": "Not enough scores for handicap, need 2 more",
+        "Handicap": "Need 2 more recorded scores",
         "Last Recorded Score Date": "5/15/2024"
     },
     {
@@ -62,6 +62,6 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-17T23:57:01.504019+00:00"
+        "Last Recorded Score Date": "2024-06-18T00:05:56.436235+00:00"
     }
 ]

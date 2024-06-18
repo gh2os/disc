@@ -91,7 +91,7 @@ def process_scores():
             needed_scores = 3 - len(scores)
             result.append({
                 'Player': player,
-                'Handicap': f'Not enough scores for handicap, need {needed_scores} more',
+                'Handicap': f'Need {needed_scores} more recorded scores',
                 'Last Recorded Score Date': last_recorded_score_date
             })
         else:

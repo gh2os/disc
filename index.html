@@ -14,34 +14,39 @@
         th, td { white-space: nowrap; }
         tbody tr:nth-child(even) { background-color: #f9f9f9; }
         tbody tr:hover { background-color: #f1f1f1; }
+        .table-container { overflow-x: auto; }
         @media (max-width: 600px) {
             th, td { padding: 8px; }
             #last-updated { font-size: 1em; }
+            h1 { font-size: 1.5em; }
+            h2 { font-size: 1.2em; }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Disc Golf Scores</h1>
+        <h1>Lower Similkameen Disc Club</h1>
         <div id="last-updated">Last Updated: </div>
     </header>
 
     <main>
         <h2>Current Player Handicaps</h2>
-        <table id="handicapTable">
-            <thead>
-                <tr>
-                    <th>Player</th>
-                    <th>Current Handicap</th>
-                    <th>Last Recorded Score Date</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="table-container">
+            <table id="handicapTable">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Current Handicap</th>
+                        <th>Last Recorded Score Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </main>
 
     <footer>
-        <p style="text-align: center;">&copy; 2024 Disc Golf League</p>
+        <p style="text-align: center;">LSD Club</p>
     </footer>
 
     <script>
