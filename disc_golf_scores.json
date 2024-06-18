@@ -1,7 +1,7 @@
 [
     {
         "Player": "Devon Lach",
-        "Handicap": "Need 1 more recorded scores",
+        "Handicap": "Need 1 score(s)",
         "Last Recorded Score Date": "6/5/2024"
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "Player": "Laura Meshen",
-        "Handicap": 27.333333333333332,
+        "Handicap": 27.33,
         "Last Recorded Score Date": "6/5/2024"
     },
     {
@@ -36,7 +36,7 @@
     },
     {
         "Player": "Murray Fontaine",
-        "Handicap": 7.333333333333333,
+        "Handicap": 7.33,
         "Last Recorded Score Date": "6/12/2024"
     },
     {
@@ -46,22 +46,22 @@
     },
     {
         "Player": "laurie Smith",
-        "Handicap": "Need 2 more recorded scores",
+        "Handicap": "Need 2 score(s)",
         "Last Recorded Score Date": "5/15/2024"
     },
     {
         "Player": "Kevin Letts",
-        "Handicap": "Need 2 more recorded scores",
+        "Handicap": "Need 2 score(s)",
         "Last Recorded Score Date": "5/15/2024"
     },
     {
         "Player": "Greg Waters",
-        "Handicap": 1.6666666666666667,
+        "Handicap": 1.67,
         "Last Recorded Score Date": "6/12/2024"
     },
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-18T00:05:56.436235+00:00"
+        "Last Recorded Score Date": "2024-06-18T00:45:19.936836+00:00"
     }
 ]
