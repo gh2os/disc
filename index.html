@@ -59,7 +59,7 @@
                 // Find and display the last updated timestamp
                 const lastUpdatedEntry = data.find(entry => entry.Player === 'last_updated');
                 if (lastUpdatedEntry) {
-                    document.getElementById('last-updated').innerText = `Last Updated: ${new Date(lastUpdatedEntry['Last Recorded Score Date']).toLocaleString()}`;
+                    document.getElementById('last-updated').innerText = `Last Updated: ${new Date(lastUpdatedEntry['Last Recorded Score']).toLocaleString()}`;
                 }
     
                 // Populate handicap table
