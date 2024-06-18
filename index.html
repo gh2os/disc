@@ -6,32 +6,49 @@
     <title>Disc Golf Scores</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; }
+        h1, h2 { text-align: center; }
+        #last-updated { text-align: center; margin-bottom: 20px; font-size: 1.2em; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
         th { background-color: #f2f2f2; }
+        th, td { white-space: nowrap; }
+        tbody tr:nth-child(even) { background-color: #f9f9f9; }
+        tbody tr:hover { background-color: #f1f1f1; }
+        @media (max-width: 600px) {
+            th, td { padding: 8px; }
+            #last-updated { font-size: 1em; }
+        }
     </style>
 </head>
 <body>
-    <h1>Disc Golf Scores</h1>
+    <header>
+        <h1>Disc Golf Scores</h1>
+        <div id="last-updated">Last Updated: </div>
+    </header>
 
-    <h2>Current Player Handicaps</h2>
-    <table id="handicapTable">
-        <thead>
-            <tr>
-                <th>Player</th>
-                <th>Current Handicap</th>
-                <th>Last Recorded Score Date</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <main>
+        <h2>Current Player Handicaps</h2>
+        <table id="handicapTable">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Current Handicap</th>
+                    <th>Last Recorded Score Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </main>
 
-    <div id="last-updated">Last Updated: </div>
+    <footer>
+        <p style="text-align: center;">&copy; 2024 Disc Golf League</p>
+    </footer>
 
     <script>
         async function fetchScores() {
             try {
-                const response = await fetch('https://gh2os.github.io/disc/disc_golf_scores.json');
+                // Add a unique query parameter to the URL to bypass the cache
+                const response = await fetch('https://gh2os.github.io/disc/disc_golf_scores.json?timestamp=' + new Date().getTime());
                 const data = await response.json();
     
                 // Find and display the last updated timestamp
