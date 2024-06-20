@@ -16,8 +16,8 @@
     },
     {
         "Player": "Laura M.",
-        "Handicap": 27.33,
-        "Last Recorded Score Date": "6/5/2024"
+        "Handicap": 28.0,
+        "Last Recorded Score Date": "6/19/2024"
     },
     {
         "Player": "Michael P.",
@@ -26,8 +26,8 @@
     },
     {
         "Player": "Brad W.",
-        "Handicap": 1.2,
-        "Last Recorded Score Date": "6/12/2024"
+        "Handicap": 1.6,
+        "Last Recorded Score Date": "6/19/2024"
     },
     {
         "Player": "D'arcy B.",
@@ -62,6 +62,6 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-20T03:17:32.329761+00:00"
+        "Last Recorded Score Date": "2024-06-20T03:18:47.352716+00:00"
     }
 ]
