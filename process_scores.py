@@ -62,11 +62,11 @@ def format_name(name):
 
 def calculate_handicap(scores):
     if len(scores) >= 5:
-        return round(sum(scores[-5:]) / 5, 2)
+        return round(sum(scores[-5:]) / 5)
     elif len(scores) == 4:
-        return round(sum(scores) / 4, 2)
+        return round(sum(scores) / 4)
     elif len(scores) == 3:
-        return round(sum(scores) / 3, 2)
+        return round(sum(scores) / 3)
     else:
         return None
 
