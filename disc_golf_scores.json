@@ -21,12 +21,12 @@
     },
     {
         "Player": "Michael P.",
-        "Handicap": 0.0,
-        "Last Recorded Score Date": "6/12/2024"
+        "Handicap": 0.6,
+        "Last Recorded Score Date": "6/19/2024"
     },
     {
         "Player": "Brad W.",
-        "Handicap": 1.6,
+        "Handicap": 0.0,
         "Last Recorded Score Date": "6/19/2024"
     },
     {
@@ -62,6 +62,6 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-20T03:18:47.352716+00:00"
+        "Last Recorded Score Date": "2024-06-20T03:19:25.415724+00:00"
     }
 ]
