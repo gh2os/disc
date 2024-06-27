@@ -26,12 +26,12 @@
     },
     {
         "Player": "Brad W.",
-        "Handicap": 0,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": -1,
+        "Last Recorded Score Date": "6/26/2024"
     },
     {
         "Player": "D'arcy B.",
-        "Handicap": 1,
+        "Handicap": 0,
         "Last Recorded Score Date": "6/26/2024"
     },
     {
@@ -61,12 +61,12 @@
     },
     {
         "Player": "Sean",
-        "Handicap": "Need 2 score(s)",
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": "Need 1 score(s)",
+        "Last Recorded Score Date": "6/26/2024"
     },
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-27T03:15:03.584442+00:00"
+        "Last Recorded Score Date": "2024-06-27T03:25:29.081230+00:00"
     }
 ]
