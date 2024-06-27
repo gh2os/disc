@@ -1,13 +1,13 @@
 [
     {
         "Player": "Devon L.",
-        "Handicap": "Need 1 score(s)",
-        "Last Recorded Score Date": "6/5/2024"
+        "Handicap": 13,
+        "Last Recorded Score Date": "6/26/2024"
     },
     {
         "Player": "Dion E.",
         "Handicap": 7,
-        "Last Recorded Score Date": "6/19/2024"
+        "Last Recorded Score Date": "6/26/2024"
     },
     {
         "Player": "Brian V.",
@@ -16,8 +16,8 @@
     },
     {
         "Player": "Laura M.",
-        "Handicap": 28,
-        "Last Recorded Score Date": "6/19/2024"
+        "Handicap": 30,
+        "Last Recorded Score Date": "6/26/2024"
     },
     {
         "Player": "Michael P.",
@@ -67,6 +67,6 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-20T14:08:25.217943+00:00"
+        "Last Recorded Score Date": "2024-06-27T03:14:01.361914+00:00"
     }
 ]
