@@ -66,12 +66,17 @@
     },
     {
         "Player": "total r.",
-        "Handicap": 43,
+        "Handicap": 7,
         "Last Recorded Score Date": "6/26/2024"
+    },
+    {
+        "Player": "sum o.",
+        "Handicap": "Need 2 score(s)",
+        "Last Recorded Score Date": "5/15/2024"
     },
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-06-27T03:35:21.543227+00:00"
+        "Last Recorded Score Date": "2024-06-27T03:35:56.909800+00:00"
     }
 ]
