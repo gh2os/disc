@@ -60,13 +60,18 @@
         "Last Recorded Score Date": "7/10/2024"
     },
     {
-        "Player": "Sean",
-        "Handicap": 6,
-        "Last Recorded Score Date": "7/3/2024"
+        "Player": "Shawn",
+        "Handicap": 7,
+        "Last Recorded Score Date": "7/10/2024"
+    },
+    {
+        "Player": "Valerie",
+        "Handicap": "Need 3 score(s)",
+        "Last Recorded Score Date": null
     },
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-07-11T04:19:09.879932+00:00"
+        "Last Recorded Score Date": "2024-07-11T04:19:50.341280+00:00"
     }
 ]
