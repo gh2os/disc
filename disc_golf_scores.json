@@ -56,13 +56,13 @@
     },
     {
         "Player": "Greg W.",
-        "Handicap": 2,
-        "Last Recorded Score Date": "7/10/2024"
+        "Handicap": 1,
+        "Last Recorded Score Date": "7/17/2024"
     },
     {
         "Player": "Shawn",
-        "Handicap": 7,
-        "Last Recorded Score Date": "7/10/2024"
+        "Handicap": 6,
+        "Last Recorded Score Date": "7/17/2024"
     },
     {
         "Player": "Valerie",
@@ -71,17 +71,17 @@
     },
     {
         "Player": "James S.",
-        "Handicap": "Need 3 score(s)",
-        "Last Recorded Score Date": null
+        "Handicap": "Need 2 score(s)",
+        "Last Recorded Score Date": "7/17/2024"
     },
     {
         "Player": "Will",
-        "Handicap": "Need 3 score(s)",
-        "Last Recorded Score Date": null
+        "Handicap": "Need 2 score(s)",
+        "Last Recorded Score Date": "7/17/2024"
     },
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-07-18T04:33:45.220209+00:00"
+        "Last Recorded Score Date": "2024-07-18T04:34:11.376168+00:00"
     }
 ]
