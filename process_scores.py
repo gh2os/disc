@@ -11,7 +11,6 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 SPREADSHEET_ID = '1pIPq4gkc8y08Px6bwh5bPEOv6HngLxw4zOZX355NW3c'  # Replace with your Google Sheets ID
 RANGE_NAME = 'Scores!A2:Z'  # Adjust the range as needed to include headers and data
 
-
 def fetch_data_from_sheets():
     creds = Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
     service = build('sheets', 'v4', credentials=creds)
@@ -80,6 +79,8 @@ def process_scores():
 
     result = []
 
+    total_score_count = df['Score'].count()  # Calculate the total count of all scores
+
     for player in players:
         if player.strip() == "":  # Skip blank player names
             continue
@@ -118,6 +119,49 @@ def process_scores():
         'Handicap': '',
         'Last Recorded Score Date': datetime.now(timezone.utc).isoformat()
     })
+
+    # Load existing ace pot data if available
+    ace_pots = []
+    remaining_scores = total_score_count
+    pot_number = 1
+    try:
+        with open('disc_golf_scores.json', 'r') as f:
+            existing_data = json.load(f)
+            for entry in existing_data:
+                if 'ace_pot' in entry['Player']:
+                    ace_pots.append(entry)
+                    if not entry['paid_out']:
+                        remaining_scores -= int(entry['Last Recorded Score Date'].strip('$'))
+    except FileNotFoundError:
+        existing_data = []
+
+    # Add new ace pots based on remaining scores
+    while remaining_scores > 0:
+        current_pot = min(remaining_scores, 100)
+        ace_pots.append({
+            'Player': f'ace_pot_{pot_number}',
+            'Handicap': '',
+            'Last Recorded Score Date': f'${current_pot}',
+            'paid_out': False  # Mark the new pots as not paid out
+        })
+        remaining_scores -= current_pot
+        pot_number += 1
+
+    # Retain paid_out status for existing ace pots and update values if necessary
+    updated_ace_pots = []
+    for pot in ace_pots:
+        if any(existing_pot['Player'] == pot['Player'] for existing_pot in existing_data):
+            existing_pot = next(existing_pot for existing_pot in existing_data if existing_pot['Player'] == pot['Player'])
+            if existing_pot['paid_out']:
+                updated_ace_pots.append(existing_pot)
+            else:
+                updated_ace_pots.append(pot)
+        else:
+            updated_ace_pots.append(pot)
+
+    # Append ace pot data to result
+    for pot in updated_ace_pots:
+        result_data.append(pot)
 
     with open('disc_golf_scores.json', 'w') as f:
         json.dump(result_data, f, indent=4)
