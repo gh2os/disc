@@ -88,12 +88,6 @@
         "Player": "ace_pot_1",
         "Handicap": "",
         "Last Recorded Score Date": "$75",
-        "paid_out": true
-    },
-    {
-        "Player": "ace_pot_2",
-        "Handicap": "",
-        "Last Recorded Score Date": "$76",
         "paid_out": false
     }
 ]
