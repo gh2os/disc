@@ -129,8 +129,8 @@ def process_scores():
             existing_data = json.load(f)
             for entry in existing_data:
                 if 'ace_pot' in entry['Player']:
-                    if not any(existing_pot['Player'] == entry['Player'] and existing_pot['paid_out'] == entry['paid_out'] for existing_pot in ace_pots):
-                        ace_pots.append(entry)
+                    ace_pots.append(entry)
+                    pot_number = max(pot_number, int(entry['Player'].split('_')[2]) + 1)
                     if not entry['paid_out']:
                         remaining_scores -= int(entry['Last Recorded Score Date'].strip('$'))
     except FileNotFoundError:
