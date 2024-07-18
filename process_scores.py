@@ -23,51 +23,49 @@ def fetch_data_from_sheets():
         print('No data found.')
         return pd.DataFrame()
     else:
-        # Print fetched values for debugging
-        print("Fetched values:")
-        for row in values:
-            print(row)
-
-        # The first row (index 0) is the header
         headers = values[0]
         num_columns = len(headers)
-
-        # Extract data starting from the row after the header
         data = [row for row in values[1:]]
-
-        # Adjust the number of columns in each data row to match the header
         data = [row + [''] * (num_columns - len(row)) for row in data]
-
-        # Create DataFrame with the correct headers
         df = pd.DataFrame(data, columns=headers)
-
-        # Fill the missing player names in the Player column
         df['Player'] = df['Player'].ffill()
-
-        # Print DataFrame structure for debugging
-        print("DataFrame structure:")
-        print(df.head())
-
-        # Transpose the data to get it into the right format
         df = df.melt(id_vars=["Player"], var_name="Date", value_name="Score")
         df["Score"] = pd.to_numeric(df["Score"], errors="coerce")
         return df
 
-def format_name(name):
-    parts = name.split()
-    if len(parts) > 1:
-        return f"{parts[0]} {parts[1][0]}."
-    return name
+def update_ace_pots(df):
+    total_score_count = df['Score'].count()
+    
+    # Load existing ace pot data if available
+    ace_pots = []
+    try:
+        with open('disc_golf_scores.json', 'r') as f:
+            ace_pots = json.load(f)
+    except FileNotFoundError:
+        ace_pots = []
 
-def calculate_handicap(scores):
-    if len(scores) >= 5:
-        return round(sum(scores[-5:]) / 5)
-    elif len(scores) == 4:
-        return round(sum(scores) / 4)
-    elif len(scores) == 3:
-        return round(sum(scores) / 3)
-    else:
-        return None
+    # Calculate the total remaining scores excluding paid out pots
+    remaining_scores = total_score_count
+    for pot in ace_pots:
+        if not pot['paid_out']:
+            remaining_scores -= int(pot['Last Recorded Score Date'].strip('$'))
+
+    # Update ace pots with new scores
+    pot_number = len(ace_pots) + 1 if ace_pots else 1
+    while remaining_scores > 0:
+        current_pot_value = min(remaining_scores, 100)
+        ace_pots.append({
+            'Player': f'ace_pot_{pot_number}',
+            'Handicap': '',
+            'Last Recorded Score Date': f'${current_pot_value}',
+            'paid_out': False
+        })
+        remaining_scores -= current_pot_value
+        pot_number += 1
+
+    # Save updated ace pot data to JSON
+    with open('disc_golf_scores.json', 'w') as f:
+        json.dump(ace_pots, f, indent=4)
 
 def process_scores():
     df = fetch_data_from_sheets()
@@ -76,10 +74,7 @@ def process_scores():
         return
 
     players = df['Player'].unique()
-
     result = []
-
-    total_score_count = df['Score'].count()  # Calculate the total count of all scores
 
     for player in players:
         if player.strip() == "":  # Skip blank player names
@@ -120,44 +115,10 @@ def process_scores():
         'Last Recorded Score Date': datetime.now(timezone.utc).isoformat()
     })
 
-    # Load existing ace pot data if available
-    ace_pots = []
-    remaining_scores = total_score_count
-    pot_number = 1
-    try:
-        with open('disc_golf_scores.json', 'r') as f:
-            existing_data = json.load(f)
-            for entry in existing_data:
-                if 'ace_pot' in entry['Player']:
-                    ace_pots.append(entry)
-                    pot_number = max(pot_number, int(entry['Player'].split('_')[2]) + 1)
-                    if not entry['paid_out']:
-                        remaining_scores -= int(entry['Last Recorded Score Date'].strip('$'))
-    except FileNotFoundError:
-        existing_data = []
+    # Update ace pots with new scores
+    update_ace_pots(df)
 
-    # Add new ace pots based on remaining scores
-    while remaining_scores > 0:
-        current_pot = min(remaining_scores, 100)
-        ace_pots.append({
-            'Player': f'ace_pot_{pot_number}',
-            'Handicap': '',
-            'Last Recorded Score Date': f'${current_pot}',
-            'paid_out': False  # Mark the new pots as not paid out
-        })
-        remaining_scores -= current_pot
-        pot_number += 1
-
-    # Remove duplicates and ensure accurate pot values
-    unique_ace_pots = {}
-    for pot in ace_pots:
-        unique_ace_pots[pot['Player']] = pot
-    ace_pots = list(unique_ace_pots.values())
-
-    # Append ace pot data to result
-    for pot in ace_pots:
-        result_data.append(pot)
-
+    # Save player data to JSON
     with open('disc_golf_scores.json', 'w') as f:
         json.dump(result_data, f, indent=4)
 
