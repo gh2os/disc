@@ -65,6 +65,7 @@
                 }
                 if (acePotsEntries.length > 0) {
                     const acePotsDiv = document.getElementById('ace-pots');
+                    acePotsDiv.innerHTML = ''; // Clear existing content
                     acePotsEntries.forEach(entry => {
                         const potNumber = entry.Player.split('_')[2];
                         const potValue = entry['Last Recorded Score Date'];
@@ -77,6 +78,7 @@
     
                 // Populate handicap table
                 const handicapTableBody = document.querySelector('#handicapTable tbody');
+                handicapTableBody.innerHTML = ''; // Clear existing content
                 data.forEach(entry => {
                     if (!entry.Player.startsWith('ace_pot_') && entry.Player !== 'last_updated') {
                         const tr = document.createElement('tr');
