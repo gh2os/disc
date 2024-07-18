@@ -148,6 +148,12 @@ def process_scores():
         remaining_scores -= current_pot
         pot_number += 1
 
+    # Remove duplicates and ensure accurate pot values
+    unique_ace_pots = {}
+    for pot in ace_pots:
+        unique_ace_pots[pot['Player']] = pot
+    ace_pots = list(unique_ace_pots.values())
+
     # Append ace pot data to result
     for pot in ace_pots:
         result_data.append(pot)
