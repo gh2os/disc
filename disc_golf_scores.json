@@ -82,6 +82,12 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-07-18T06:46:38.052059+00:00"
+        "Last Recorded Score Date": "2024-07-18T07:38:55.927069+00:00"
+    },
+    {
+        "Ace Pot": "Ace Pot 1",
+        "Amount": 75,
+        "Paid Out": false,
+        "Date": ""
     }
 ]
