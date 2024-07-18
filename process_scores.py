@@ -129,7 +129,8 @@ def process_scores():
             existing_data = json.load(f)
             for entry in existing_data:
                 if 'ace_pot' in entry['Player']:
-                    ace_pots.append(entry)
+                    if not any(existing_pot['Player'] == entry['Player'] and existing_pot['paid_out'] == entry['paid_out'] for existing_pot in ace_pots):
+                        ace_pots.append(entry)
                     if not entry['paid_out']:
                         remaining_scores -= int(entry['Last Recorded Score Date'].strip('$'))
     except FileNotFoundError:
@@ -147,20 +148,8 @@ def process_scores():
         remaining_scores -= current_pot
         pot_number += 1
 
-    # Retain paid_out status for existing ace pots and update values if necessary
-    updated_ace_pots = []
-    for pot in ace_pots:
-        if any(existing_pot['Player'] == pot['Player'] for existing_pot in existing_data):
-            existing_pot = next(existing_pot for existing_pot in existing_data if existing_pot['Player'] == pot['Player'])
-            if existing_pot['paid_out']:
-                updated_ace_pots.append(existing_pot)
-            else:
-                updated_ace_pots.append(pot)
-        else:
-            updated_ace_pots.append(pot)
-
     # Append ace pot data to result
-    for pot in updated_ace_pots:
+    for pot in ace_pots:
         result_data.append(pot)
 
     with open('disc_golf_scores.json', 'w') as f:
