@@ -87,7 +87,7 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-07-28T14:29:10.829611+00:00"
+        "Last Recorded Score Date": "2024-07-28T14:29:40.841630+00:00"
     },
     {
         "Player": "ace_pot_1",
@@ -111,6 +111,12 @@
         "Player": "ace_pot_1",
         "Handicap": "",
         "Last Recorded Score Date": "$2",
+        "paid_out": false
+    },
+    {
+        "Player": "ace_pot_1",
+        "Handicap": "",
+        "Last Recorded Score Date": "$1",
         "paid_out": false
     },
     {
