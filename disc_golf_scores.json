@@ -117,31 +117,13 @@
     {
         "Player": "ace_pot_1",
         "Handicap": "",
-        "Last Recorded Score Date": "$95",
+        "Last Recorded Score Date": "$100",
         "paid_out": false
     },
     {
-        "Player": "ace_pot_1",
+        "Player": "ace_pot_2",
         "Handicap": "",
-        "Last Recorded Score Date": "$1",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$3",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$3",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$1",
+        "Last Recorded Score Date": "$8",
         "paid_out": false
     }
 ]
