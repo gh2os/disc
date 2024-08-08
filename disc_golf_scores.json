@@ -11,8 +11,8 @@
     },
     {
         "Player": "Brian V.",
-        "Handicap": 8,
-        "Last Recorded Score Date": "7/31/2024"
+        "Handicap": 7,
+        "Last Recorded Score Date": "8/7/2024"
     },
     {
         "Player": "Laura M.",
@@ -112,12 +112,18 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-08-08T01:20:17.012331+00:00"
+        "Last Recorded Score Date": "2024-08-08T02:51:09.824734+00:00"
     },
     {
         "Player": "ace_pot_1",
         "Handicap": "",
         "Last Recorded Score Date": "$95",
+        "paid_out": false
+    },
+    {
+        "Player": "ace_pot_1",
+        "Handicap": "",
+        "Last Recorded Score Date": "$1",
         "paid_out": false
     }
 ]
