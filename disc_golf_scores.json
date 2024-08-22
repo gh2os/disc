@@ -142,7 +142,7 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-08-22T03:44:29.114832+00:00"
+        "Last Recorded Score Date": "2024-08-22T03:42:49.429103+00:00"
     },
     {
         "Player": "ace_pot_1",
@@ -153,73 +153,7 @@
     {
         "Player": "ace_pot_2",
         "Handicap": "",
-        "Last Recorded Score Date": "$14",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$3",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$2",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$1",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$2",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$1",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$4",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$2",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$1",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$1",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$2",
-        "paid_out": false
-    },
-    {
-        "Player": "ace_pot_1",
-        "Handicap": "",
-        "Last Recorded Score Date": "$1",
+        "Last Recorded Score Date": "$33",
         "paid_out": false
     }
 ]
