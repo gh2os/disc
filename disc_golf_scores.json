@@ -116,8 +116,8 @@
     },
     {
         "Player": "susan d.",
-        "Handicap": "Need 2 score(s)",
-        "Last Recorded Score Date": "8/21/2024"
+        "Handicap": "Need 1 score(s)",
+        "Last Recorded Score Date": "8/28/2024"
     },
     {
         "Player": "gord s.",
@@ -126,8 +126,8 @@
     },
     {
         "Player": "sean c.",
-        "Handicap": "Need 2 score(s)",
-        "Last Recorded Score Date": "8/21/2024"
+        "Handicap": "Need 1 score(s)",
+        "Last Recorded Score Date": "8/28/2024"
     },
     {
         "Player": "jasojn",
@@ -142,7 +142,7 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-09-04T11:13:31.823231+00:00"
+        "Last Recorded Score Date": "2024-09-04T11:13:58.232394+00:00"
     },
     {
         "Player": "ace_pot_1",
@@ -166,6 +166,12 @@
         "Player": "ace_pot_1",
         "Handicap": "",
         "Last Recorded Score Date": "$3",
+        "paid_out": false
+    },
+    {
+        "Player": "ace_pot_1",
+        "Handicap": "",
+        "Last Recorded Score Date": "$2",
         "paid_out": false
     }
 ]
