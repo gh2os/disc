@@ -141,28 +141,28 @@
     },
     {
         "Player": "gil l.",
-        "Handicap": "Need 3 score(s)",
-        "Last Recorded Score Date": null
+        "Handicap": "Need 2 score(s)",
+        "Last Recorded Score Date": "8/28/2024"
     },
     {
         "Player": "steve l.",
-        "Handicap": "Need 3 score(s)",
-        "Last Recorded Score Date": null
+        "Handicap": "Need 2 score(s)",
+        "Last Recorded Score Date": "8/28/2024"
     },
     {
         "Player": "ria o.",
-        "Handicap": "Need 3 score(s)",
-        "Last Recorded Score Date": null
+        "Handicap": "Need 2 score(s)",
+        "Last Recorded Score Date": "8/28/2024"
     },
     {
         "Player": "will c.",
-        "Handicap": "Need 3 score(s)",
-        "Last Recorded Score Date": null
+        "Handicap": "Need 2 score(s)",
+        "Last Recorded Score Date": "8/28/2024"
     },
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-09-04T11:14:52.334492+00:00"
+        "Last Recorded Score Date": "2024-09-04T11:15:17.800983+00:00"
     },
     {
         "Player": "ace_pot_1",
@@ -192,6 +192,12 @@
         "Player": "ace_pot_1",
         "Handicap": "",
         "Last Recorded Score Date": "$2",
+        "paid_out": false
+    },
+    {
+        "Player": "ace_pot_1",
+        "Handicap": "",
+        "Last Recorded Score Date": "$4",
         "paid_out": false
     }
 ]
