@@ -16,7 +16,7 @@
     },
     {
         "Player": "Laura M.",
-        "Handicap": 26,
+        "Handicap": 36,
         "Last Recorded Score Date": "9/18/2024"
     },
     {
@@ -26,7 +26,7 @@
     },
     {
         "Player": "Brad W.",
-        "Handicap": 0,
+        "Handicap": -1,
         "Last Recorded Score Date": "9/18/2024"
     },
     {
@@ -37,12 +37,12 @@
     {
         "Player": "Murray F.",
         "Handicap": 5,
-        "Last Recorded Score Date": "9/18/2024"
+        "Last Recorded Score Date": "9/4/2024"
     },
     {
         "Player": "Michael C.",
-        "Handicap": 3,
-        "Last Recorded Score Date": "9/18/2024"
+        "Handicap": 2,
+        "Last Recorded Score Date": "9/11/2024"
     },
     {
         "Player": "Smitty",
@@ -162,7 +162,7 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-09-18T23:29:33.216107+00:00"
+        "Last Recorded Score Date": "2024-09-18T23:31:15.934438+00:00"
     },
     {
         "Player": "ace_pot_1",
