@@ -16,33 +16,33 @@
     },
     {
         "Player": "Laura M.",
-        "Handicap": 32,
-        "Last Recorded Score Date": "8/14/2024"
+        "Handicap": 26,
+        "Last Recorded Score Date": "9/18/2024"
     },
     {
         "Player": "Michael P.",
         "Handicap": -3,
-        "Last Recorded Score Date": "8/14/2024"
+        "Last Recorded Score Date": "9/18/2024"
     },
     {
         "Player": "Brad W.",
-        "Handicap": -2,
-        "Last Recorded Score Date": "9/11/2024"
+        "Handicap": 0,
+        "Last Recorded Score Date": "9/18/2024"
     },
     {
         "Player": "D'arcy B.",
-        "Handicap": -1,
-        "Last Recorded Score Date": "9/11/2024"
+        "Handicap": 0,
+        "Last Recorded Score Date": "9/18/2024"
     },
     {
         "Player": "Murray F.",
         "Handicap": 5,
-        "Last Recorded Score Date": "9/4/2024"
+        "Last Recorded Score Date": "9/18/2024"
     },
     {
         "Player": "Michael C.",
-        "Handicap": 2,
-        "Last Recorded Score Date": "9/11/2024"
+        "Handicap": 3,
+        "Last Recorded Score Date": "9/18/2024"
     },
     {
         "Player": "Smitty",
@@ -162,7 +162,7 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-09-18T23:27:01.337322+00:00"
+        "Last Recorded Score Date": "2024-09-18T23:27:55.089931+00:00"
     },
     {
         "Player": "ace_pot_1",
@@ -174,6 +174,12 @@
         "Player": "ace_pot_2",
         "Handicap": "",
         "Last Recorded Score Date": "$69",
+        "paid_out": false
+    },
+    {
+        "Player": "ace_pot_1",
+        "Handicap": "",
+        "Last Recorded Score Date": "$2",
         "paid_out": false
     }
 ]
