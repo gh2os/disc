@@ -27,7 +27,7 @@
     {
         "Player": "Brad W.",
         "Handicap": -1,
-        "Last Recorded Score Date": "10/2/2024"
+        "Last Recorded Score Date": "10/9/2024"
     },
     {
         "Player": "D'arcy B.",
@@ -172,7 +172,7 @@
     {
         "Player": "last_updated",
         "Handicap": "",
-        "Last Recorded Score Date": "2024-10-10T02:57:30.261418+00:00"
+        "Last Recorded Score Date": "2024-10-10T03:05:37.864495+00:00"
     },
     {
         "Player": "ace_pot_1",
@@ -214,6 +214,12 @@
         "Player": "ace_pot_1",
         "Handicap": "",
         "Last Recorded Score Date": "$2",
+        "paid_out": false
+    },
+    {
+        "Player": "ace_pot_1",
+        "Handicap": "",
+        "Last Recorded Score Date": "$1",
         "paid_out": false
     }
 ]
